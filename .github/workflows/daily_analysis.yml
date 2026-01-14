@@ -26,11 +26,11 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: Check .env
+      - name: Load .env safely
         run: |
-          set -a
-          source .env
-          set +a
+          # 只读取 KEY=value 行，忽略注释/空行/引号
+          export $(grep -v '^#' .env | xargs)
+        shell: bash
       
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
