@@ -26,11 +26,16 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: Load .env safely
-        run: |
-          # 只读取 KEY=value 行，忽略注释/空行/引号
-          export $(grep -v '^#' .env | xargs)
-        shell: bash
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Install dotenv-cli
+        run: npm install -g dotenv-cli
+      
+      - name: Run script with .env
+        run: dotenv -- php think daily:analysis
       
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
