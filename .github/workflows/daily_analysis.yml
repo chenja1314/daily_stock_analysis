@@ -25,6 +25,9 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+      - uses: dotenv/actions/load@v1 # 加载 .env
+        with:
+          path: './' # .env 文件路径
       
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
