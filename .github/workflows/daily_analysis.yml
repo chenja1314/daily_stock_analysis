@@ -28,8 +28,9 @@ jobs:
 
       - name: Check .env
         run: |
-          ls -la .env
-          cat .env
+          set -a
+          source .env
+          set +a
       
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
