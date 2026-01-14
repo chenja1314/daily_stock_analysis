@@ -25,12 +25,6 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
-
-      - name: Debug env
-        run: |
-          echo "DB_HOST = $TUSHARE_TOKEN"
-          echo "APP_KEY = $APP_KEY"
-          env | grep -E 'DB_|APP_'
       
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
