@@ -42,10 +42,7 @@ jobs:
           set +a
 
       - name: Debug (optional)
-        run: echo "DB_HOST is [$DB_HOST]"
-
-      - name: Run analysis
-        run: php think daily:analysis
+        run: echo "TELEGRAM_BOT_TOKEN is [$TELEGRAM_BOT_TOKEN]"
       
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
