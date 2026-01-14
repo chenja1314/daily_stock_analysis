@@ -26,16 +26,26 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          node-version: '18'
-      
-      - name: Install dotenv-cli
-        run: npm install -g dotenv-cli
-      
-      - name: Run script with .env
-        run: dotenv -- php think daily:analysis
+          php-version: '7.4'
+
+      # ✅ 安全加载 .env
+      - name: Load .env
+        run: |
+          set -a
+          # 过滤掉注释和空行，再 source
+          if [ -f .env ]; then
+            export $(grep -v '^#' .env | xargs)
+          fi
+          set +a
+
+      - name: Debug (optional)
+        run: echo "DB_HOST is [$DB_HOST]"
+
+      - name: Run analysis
+        run: php think daily:analysis
       
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
